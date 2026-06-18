@@ -1,0 +1,28 @@
+/* Login specific unique elements */
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.label-row label {
+    margin-bottom: 0; /* Override default margin */
+}
+
+.forgot-link {
+    font-size: 0.85rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* Ensure custom password spacing matches perfectly */
+.password-group {
+    margin-bottom: 1.5rem;
+}

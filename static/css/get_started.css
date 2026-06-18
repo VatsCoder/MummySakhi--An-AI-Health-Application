@@ -1,0 +1,198 @@
+:root {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --bg-light: #f8fafc;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--white);
+    color: var(--text-main);
+}
+
+.split-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Visual Side Styling */
+.visual-side {
+    flex: 1;
+    background-color: #eff6ff;
+    background-image: radial-gradient(circle at top left, #dbeafe 0%, #eff6ff 100%);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.logo-circle {
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--primary);
+    border-radius: 50%;
+}
+
+.visual-content h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+}
+
+.visual-content p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 450px;
+}
+
+.testimonial-mini {
+    margin-top: 4rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    max-width: 400px;
+}
+
+.testimonial-mini p {
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.testimonial-mini span {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* Form Side Styling */
+.form-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 400px;
+}
+
+.mobile-logo {
+    display: none; /* Only visible on small screens */
+    margin-bottom: 2rem;
+    font-weight: 700;
+    gap: 8px;
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: var(--primary);
+}
+
+.terms {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.terms a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-dark);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.login-footer a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .visual-side {
+        display: none;
+    }
+    .mobile-logo {
+        display: flex;
+    }
+}

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - HealthMemory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-circle"></div>
+            HealthMemory
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard" class="active">Dashboard</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout" class="btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <aside class="left-col">
+            <section class="card daily-checkin">
+                <div class="card-header">
+                    <span class="blue-accent"></span>
+                    <h3>Daily Check-in</h3>
+                </div>
+                
+                <form action="/save-daily-log" method="POST">
+                    <div class="input-group">
+                        <label>Sleep Hours</label>
+                        <input type="number" step="0.5" name="sleep" min="0" max="24" value="6" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Workload Hours</label>
+                        <input type="number" step="0.5" name="workload" value="8" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Exercise (Minutes)</label>
+                        <input type="number" name="exercise" value="30" required>
+                    </div>
+                    <div class="symptoms-group">
+                        <label>Symptoms Today</label>
+                        <div class="checkbox-grid">
+                            <label><input type="checkbox" name="symptoms" value="Fatigue"> Fatigue</label>
+                            <label><input type="checkbox" name="symptoms" value="Headache"> Headache</label>
+                            <label><input type="checkbox" name="symptoms" value="Dizziness"> Dizziness</label>
+                            <label><input type="checkbox" name="symptoms" value="Nausea"> Nausea</label>
+                            <label><input type="checkbox" name="symptoms" value="Body Ache"> Body Ache</label>
+                            <label><input type="checkbox" name="symptoms" value="Stress"> Stress</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Analyze Today</button>
+                </form>
+            </section>
+
+            <form action="/upload-report" method="POST" enctype="multipart/form-data">
+                <section class="card medical-reports dark-card">
+                    <div class="card-header">
+                        <span class="pulse-indicatorblue"></span>
+                        <h3>Medical Reports</h3>
+                    </div>
+                    <p class="card-subtitle">Upload blood tests, lab panels, or prescriptions for instant AI analysis.</p>
+                    <p class="card-subtitle" style="font-size:12px; opacity:0.6;">Last uploaded: {{ report_date }}</p>
+
+                    <div class="upload-dropzone" id="dropzone">
+                        <div class="upload-icon">📄</div>
+                        <div class="upload-text">
+                            <label for="file-upload" class="file-label">Click to upload</label>
+                            <span>or drag and drop</span>
+                        </div>
+                        <p class="file-spec">PDF, JPG, JPEG, or PNG (Max 10MB)</p>
+                        <input type="file" id="file-upload" name="medical_file" accept=".pdf, .jpg, .jpeg, .png" required>
+                    </div>
+
+                    <div id="file-status" class="file-status-hidden">
+                        <span class="file-icon">📎</span>
+                        <span id="file-name">no_file.pdf</span>
+                    </div>
+
+                    <button type="submit" class="btn-upload-submit">Start AI Extraction</button>
+                </section>
+            </form>
+        </aside>
+
+        <div class="right-col">
+
+            <!-- ── STATS GRID ─────────────────────────────────── -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="label">BMI</span>
+                    <div class="value">{{ bmi }}</div>
+                    <span class="status healthy">{{ status }}</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Risk Level</span>
+                    <div class="value">{{ risk_level }}</div>
+                    <span class="status healthy">{{ risk_status }}</span>
+                </div>
+                <div class="stat-card border-red">
+                    <span class="label">Sleep Quality</span>
+                    <div class="value">{{ sleep_status }}</div>
+                    <span class="status-text {% if direction == 'down' %}danger{% elif direction == 'up' %}healthy{% else %}neutral{% endif %}">
+                        {{ comparison }}
+                    </span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Activity</span>
+                    <div class="value">High</div>
+                    <span class="status healthy">Active</span>
+                </div>
+            </div>
+
+            <!-- ── ALERTS ─────────────────────────────────────── -->
+            {% if avg_sleep < 6 %}
+            <div class="alert alert-danger">
+                <span class="icon">⚠️</span>
+                <div>
+                    <strong>High fatigue risk detected</strong>
+                    <p>Your average sleep this week is {{ avg_sleep }} hours — below the recommended 7.</p>
+                </div>
+            </div>
+            {% endif %}
+
+            {% for m in metrics %}
+                {% if m['status'] == 'Low' or m['status'] == 'High' %}
+                <div class="alert alert-danger">
+                    <span class="icon">⚠️</span>
+                    <div>
+                        <strong>{{ m['marker'] }} is {{ m['status'] }} — follow-up required</strong>
+                        <p>{{ m['marker'] }} at {{ m['value'] }} is outside the normal range ({{ m['reference'] }}).</p>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+
+            <!-- ── MID GRID ───────────────────────────────────── -->
+            <div class="mid-grid">
+                <div class="card chart-card">
+                    <h3>Activity Trend</h3>
+                    <div class="bar-chart">
+                        <div class="bar" style="height: 40%;"><span>Mon</span></div>
+                        <div class="bar" style="height: 60%;"><span>Tue</span></div>
+                        <div class="bar active" style="height: 80%;"><span>Wed</span></div>
+                        <div class="bar" style="height: 50%;"><span>Thu</span></div>
+                        <div class="bar" style="height: 65%;"><span>Fri</span></div>
+                        <div class="bar" style="height: 30%;"><span>Sat</span></div>
+                        <div class="bar active" style="height: 75%;"><span>Sun</span></div>
+                    </div>
+                </div>
+
+                <!-- ── AI INSIGHTS BOX ────────────────────────── -->
+                <div class="card ai-recs">
+                    <h3 class="blue-text">AI Recommendations</h3>
+
+                    {% if ai_insights == "processing" %}
+                        <div class="processing-state">
+                            <div class="spinner"></div>
+                            <p>AI is analyzing your report...<br>
+                            <small>This usually takes 20–40 seconds.</small></p>
+                        </div>
+                        <!-- Auto-refresh every 8 seconds until done -->
+                        <script>setTimeout(() => location.reload(), 8000);</script>
+
+                    {% elif ai_insights == "failed" %}
+                        <div class="failed-state">
+                            <p>❌ Analysis failed. Please re-upload your report.</p>
+                        </div>
+
+                    {% else %}
+                        <p style="white-space: pre-wrap; font-size: 14px; line-height: 1.7;">{{ ai_insights }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- ── REPORT VALUES TABLE ────────────────────────── -->
+            <div class="card table-card">
+                <h3>Latest Report Values</h3>
+
+                {% if ai_insights == "processing" %}
+                    <p style="opacity:0.6; font-size:14px;">⏳ Waiting for analysis to complete...</p>
+
+                {% elif metrics %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Marker</th>
+                                <th>Value</th>
+                                <th>Reference</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for m in metrics %}
+                            <tr>
+                                <td>{{ m['marker'] }}</td>
+                                <td>{{ m['value'] }}</td>
+                                <td>{{ m['reference'] }}</td>
+                                <td>
+                                    {% if m['status'] == 'Low' %}
+                                        <span class="tag tag-red">Low</span>
+                                    {% elif m['status'] == 'High' %}
+                                        <span class="tag tag-orange">High</span>
+                                    {% else %}
+                                        <span class="tag tag-green">Normal</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                {% else %}
+                    <p style="opacity:0.6; font-size:14px;">No report data yet. Upload a report to see values here.</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </main>
+
+    <style>
+        /* Spinner for processing state */
+        .processing-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 0;
+            gap: 12px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        .spinner {
+            width: 28px;
+            height: 28px;
+            border: 3px solid rgba(255,255,255,0.2);
+            border-top-color: #4f9cf9;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .failed-state {
+            padding: 1rem 0;
+            color: #ff6b6b;
+            font-size: 14px;
+        }
+        .tag-orange {
+            background: rgba(255, 160, 50, 0.15);
+            color: #ffa032;
+            padding: 2px 10px;
+            border-radius: 99px;
+            font-size: 12px;
+        }
+    </style>
+
+    <script>
+        const fileInput = document.getElementById('file-upload');
+        const statusDiv = document.getElementById('file-status');
+        const fileNameSpan = document.getElementById('file-name');
+
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                statusDiv.className = 'file-status-visible';
+                fileNameSpan.textContent = this.files[0].name;
+            } else {
+                statusDiv.className = 'file-status-hidden';
+            }
+        });
+    </script>
+</body>
+</html>

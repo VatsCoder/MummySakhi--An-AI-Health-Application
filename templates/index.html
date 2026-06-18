@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthMemory | AI Health Agent for Mothers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-hover: #2563eb;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top, #f0f4f8 0%, #ffffff 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .logo-circle {
+            width: 24px;
+            height: 24px;
+            border: 4px solid var(--primary-blue);
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .btn-get-started {
+            background-color: var(--primary-blue);
+            color: var(--white) !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 5rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-main {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-main:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Steps Section */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            padding: 4rem 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .step-num {
+            width: 45px;
+            height: 45px;
+            background: #eff6ff;
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-num.green {
+            background: #f0fdf4;
+            color: #22c55e;
+        }
+
+        /* Features Section */
+        .features-container {
+            padding: 6rem 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-container h2 {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            font-size: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 1px solid #f1f5f9;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .card h4 {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 3rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <div class="logo-circle"></div>
+            HealthMemory
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/profile">Profile</a>
+            <a href="/start" class="btn-get-started">Get Started</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>AI Health Memory<br>Agent for Mothers</h1>
+        <p>Monitor daily health, analyze reports, and detect risks early with a personalized AI companion designed for your busy life.</p>
+        <button class="btn-main">Start Monitoring</button>
+    </header>
+
+    <section class="steps">
+        <div>
+            <div class="step-num">1</div>
+            <h3>Enter Daily Data</h3>
+            <p>Quick 30-second check-in about your sleep, mood, and activity.</p>
+        </div>
+        <div>
+            <div class="step-num green">2</div>
+            <h3>Upload Reports</h3>
+            <p>Snap a photo of medical results. Our AI extracts the vital numbers.</p>
+        </div>
+        <div>
+            <div class="step-num">3</div>
+            <h3>Get Insights</h3>
+            <p>Receive simple, actionable advice to stay at your best.</p>
+        </div>
+    </section>
+
+    <section class="features-container">
+        <h2>Everything You Need</h2>
+        <div class="features-grid">
+            <div class="card">
+                <div class="card-icon">📈</div>
+                <h4>Daily Health Tracking</h4>
+                <p>Log sleep, exercise, and symptoms in seconds.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📄</div>
+                <h4>Report Analysis</h4>
+                <p>AI reads your medical reports and extracts key values.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <h4>Risk Detection</h4>
+                <p>Early alerts when patterns indicate health concerns.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💡</div>
+                <h4>Smart Recommendations</h4>
+                <p>Personalized, actionable advice based on your data.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

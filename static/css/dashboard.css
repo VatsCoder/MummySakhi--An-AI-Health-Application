@@ -1,0 +1,462 @@
+:root {
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --primary: #3b82f6;
+    --text-main: #1e293b;
+    --text-sub: #64748b;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --card-radius: 20px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    margin: 0;
+    color: var(--text-main);
+}
+
+/* Navbar same as landing */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 5%;
+    background: var(--white);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+}
+
+.logo-circle {
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--primary);
+    border-radius: 50%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    margin-left: 2rem;
+    color: var(--text-sub);
+    font-weight: 500;
+}
+
+.nav-links a.active {
+    color: var(--primary);
+}
+
+.btn-logout {
+    color: #ef4444 !important; /* A clean red color indicating exit */
+    font-weight: 600;
+}
+
+.btn-logout:hover {
+    text-decoration: underline;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    padding: 2rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--card-radius);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+/* Left Column */
+.blue-accent {
+    width: 4px;
+    height: 20px;
+    background: var(--primary);
+    border-radius: 4px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    margin-bottom: 0.5rem;
+}
+
+input[type="number"],
+input[type="range"] {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-grid label {
+    padding: 10px;
+    border: 1px solid #f1f5f9;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.btn-primary {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+/* Card Core Container Styling */
+.dark-card {
+    background: #1e293b; /* Premium slate dark profile background */
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 24px;
+    color: #f8fafc;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.pulse-indicatorblue {
+    width: 8px;
+    height: 8px;
+    background-color: #38bdf8;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.card-subtitle {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+/* Custom Upload Dropzone Wrapper Box */
+.upload-dropzone {
+    border: 2px dashed #475569;
+    border-radius: 12px;
+    padding: 32px 20px;
+    text-align: center;
+    background: #0f172a;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+}
+
+.upload-dropzone:hover {
+    border-color: #38bdf8;
+    background: #1e293b;
+}
+
+/* Hide the actual ugly browser default button but keep it clickable */
+#file-upload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.upload-text {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 6px;
+}
+
+.file-label {
+    color: #38bdf8;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.file-spec {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* Selected File Indicator Bar */
+.file-status-hidden {
+    display: none;
+}
+
+.file-status-visible {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #334155;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-top: 14px;
+    font-size: 0.85rem;
+    color: #e2e8f0;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Submit Action Button styling */
+.btn-upload-submit {
+    width: 100%;
+    background: #38bdf8;
+    color: #0f172a;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-top: 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-upload-submit:hover {
+    background: #7dd3fc;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Right Column Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+.stat-card .label {
+    font-size: 0.8rem;
+    color: var(--text-sub);
+}
+
+.stat-card .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 5px 0;
+}
+
+.status.healthy {
+    color: var(--success);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.border-red {
+    border-left: 4px solid var(--danger);
+}
+
+.status-text.danger {
+    color: var(--danger);
+    font-size: 0.75rem;
+}
+
+/* Alerts */
+.alert {
+    display: flex;
+    gap: 15px;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+}
+
+.alert-danger {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fee2e2;
+}
+
+/* Mid Section */
+.mid-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 150px;
+    padding-top: 20px;
+}
+
+.bar {
+    width: 30px;
+    background: #f1f5f9;
+    border-radius: 5px;
+    position: relative;
+}
+
+.bar.active {
+    background: var(--primary);
+}
+
+.bar span {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    font-size: 0.7rem;
+    color: var(--text-sub);
+}
+
+.ai-recs {
+    background: #eff6ff;
+}
+
+.ai-recs ul {
+    padding-left: 1.2rem;
+}
+
+.ai-recs li {
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    color: #1e40af;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th {
+    text-align: left;
+    color: var(--text-sub);
+    font-size: 0.8rem;
+    padding: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+td {
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.tag {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.tag-red {
+    background: #fef2f2;
+    color: var(--danger);
+}
+
+.tag-green {
+    background: #f0fdf4;
+    color: var(--success);
+}
+
+@media (max-width: 1000px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .mid-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* Fix for the Dynamic Border Red Feature */
+.stat-card.border-red {
+    border: 2px solid var(--danger) !important;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+}
+
+/* Ensure standard stat cards have clean layout parameters */
+.stat-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 15px;
+    border: 1px solid #e2e8f0; /* Crisp subtle border line */
+}
+
+/* Extra status tags inside dynamic layouts */
+.status-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-text.healthy {
+    color: var(--success);
+}
+
+.status-text.danger {
+    color: var(--danger);
+}
+
+/* Custom Table Card Enhancements */
+.table-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--card-radius);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
+}
+
+/* Hover effect on report table data rows */
+table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Empty Table state indicator styling rules */
+.empty-table-text {
+    text-align: center;
+    color: var(--text-sub);
+    padding: 2rem 0 !important;
+    font-style: italic;
+}
