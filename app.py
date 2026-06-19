@@ -217,6 +217,7 @@ def process_report_in_background(report_id, user_id, file_path, report_text):
             item.get("status", "Normal")
         ))
     conn.commit()
+    time.sleep(15)
 
     # ────────────────────────────────────────────────────────
     # STEP 3: GATEKEEPER
@@ -242,7 +243,7 @@ def process_report_in_background(report_id, user_id, file_path, report_text):
             ORDER BY mr.upload_date DESC LIMIT 15
         """, (user_id, report_id))
         historical_context = [dict(row) for row in cursor.fetchall()]
-
+    time.sleep(15)
     # ────────────────────────────────────────────────────────
     # STEP 4: FINAL INSIGHT GENERATION
     # ────────────────────────────────────────────────────────
