@@ -10,7 +10,7 @@
 
 ## Overview
 
-**MummySakhi** is a web-based health monitoring platform designed to assist expecting mothers in tracking their day-to-day health metrics, logging symptoms, and receiving AI-generated clinical insights from their uploaded medical reports.
+**MummySakhi** is a web-based health monitoring platform designed to assist current mothers in tracking their day-to-day health metrics, logging symptoms, and receiving AI-generated clinical insights from their uploaded medical reports.
 
 The system leverages **Google Gemini 2.0 Flash** for intelligent biomarker extraction and health analysis, **pdfplumber** and **Tesseract OCR** for local document processing, and a lightweight **SQLite** database for persistent user data storage — all served through a **Flask** backend.
 
